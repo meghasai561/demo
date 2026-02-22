@@ -7,8 +7,10 @@ This is a production-ready trading bot for NSE BankNifty Index Options using Ang
 - Monitors the first 30-minute candle after market open.
 - Sets high and low levels from the first candle.
 - Monitors 3-minute candles thereafter.
-- Sells PUT options (1 lot) if a 3-min candle closes above the 30-min high.
-- Sells CALL options (1 lot) if a 3-min candle closes below the 30-min low.
+- Buys CALL options (1 lot) if a 3-min candle closes 35 points above the 30-min high.
+- Buys PUT options (1 lot) if a 3-min candle closes 35 points below the 30-min low.
+- Only 1 trade per leg (CALL or PUT) per day; no re-entry in the same leg after target/stop loss.
+- No new positions entered after 3:05 PM.
 - Manages positions with 10 points target and 13 points stop loss.
 - Exits positions by 3:15 PM if target/stop loss not hit.
 - Supports both paper trading (demo) and live trading.

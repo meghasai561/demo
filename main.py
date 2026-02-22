@@ -20,6 +20,15 @@ IS_PAPER = True  # Set to False for live trading
 BANKNIFTY_TOKEN = "26009"  # BankNifty index token
 EXCHANGE = "NSE"
 
+# Trading Parameters
+ENTRY_THRESHOLD = 35  # Points above/below 30-min high/low to enter
+TARGET = 10  # Profit target in points
+STOP_LOSS = 13  # Stop loss in points
+LOT_SIZE = 25  # BankNifty options lot size
+STRIKE_INTERVAL = 100  # BankNifty strike interval
+NO_ENTRY_AFTER = datetime.time(15, 5)  # No new entries after 3:05 PM
+EXIT_TIME = datetime.time(15, 15)  # Exit positions by 3:15 PM
+
 # Global variables
 smart_api = None
 web_socket = None
@@ -30,9 +39,10 @@ candle_data = []  # List of ticks for current candle
 current_candle_start = None
 candle_interval = 30  # Start with 30 min, then switch to 3 min
 current_expiry = None
+call_traded_today = False  # Track if CALL leg traded today
+put_traded_today = False  # Track if PUT leg traded today
 market_open = datetime.time(9, 15)
 market_close = datetime.time(15, 30)
-exit_time = datetime.time(15, 15)
 
 def authenticate():
     global smart_api, current_expiry
@@ -121,7 +131,7 @@ def on_message(ws, message):
             candle_data.append({'high': high, 'low': low, 'close': close, 'time': timestamp})
 
 def process_candle(high, low, close, time):
-    global first_candle_high, first_candle_low, position
+    global first_candle_high, first_candle_low, position, call_traded_today, put_traded_today
     if time.time() < market_open:
         return
     if first_candle_high is None:
@@ -131,31 +141,14 @@ def process_candle(high, low, close, time):
         logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low}")
         return
 
-    if position is None:
+    if position is None and time.time() <= NO_ENTRY_AFTER:
         # Check entry conditions for 3 min candles
-        if close > first_candle_high:
-            # Sell PUT
-            strike = round(close / 100) * 100  # BankNifty strikes in 100
-            inst = get_option_instrument(strike, 'PUT')
-            if inst:
-                response = place_order(inst['token'], "SELL", 25, inst['symbol'])  # 1 lot = 25 for BankNifty
-                if response['status']:
-                    entry_price = get_ltp(inst['token'])
-                    position = {
-                        'type': 'PUT',
-                        'strike': strike,
-                        'instrument_token': inst['token'],
-                        'symbol': inst['symbol'],
-                        'entry_price': entry_price,
-                        'entry_time': time
-                    }
-                    logging.info(f"Sold PUT {strike} at {entry_price}")
-        elif close < first_candle_low:
-            # Sell CALL
-            strike = round(close / 100) * 100
+        if close > first_candle_high + ENTRY_THRESHOLD and not call_traded_today:
+            # Buy CALL
+            strike = round(close / STRIKE_INTERVAL) * STRIKE_INTERVAL
             inst = get_option_instrument(strike, 'CALL')
             if inst:
-                response = place_order(inst['token'], "SELL", 25, inst['symbol'])
+                response = place_order(inst['token'], "BUY", LOT_SIZE, inst['symbol'])
                 if response['status']:
                     entry_price = get_ltp(inst['token'])
                     position = {
@@ -166,24 +159,43 @@ def process_candle(high, low, close, time):
                         'entry_price': entry_price,
                         'entry_time': time
                     }
-                    logging.info(f"Sold CALL {strike} at {entry_price}")
+                    call_traded_today = True
+                    logging.info(f"Bought CALL {strike} at {entry_price}")
+        elif close < first_candle_low - ENTRY_THRESHOLD and not put_traded_today:
+            # Buy PUT
+            strike = round(close / STRIKE_INTERVAL) * STRIKE_INTERVAL
+            inst = get_option_instrument(strike, 'PUT')
+            if inst:
+                response = place_order(inst['token'], "BUY", LOT_SIZE, inst['symbol'])
+                if response['status']:
+                    entry_price = get_ltp(inst['token'])
+                    position = {
+                        'type': 'PUT',
+                        'strike': strike,
+                        'instrument_token': inst['token'],
+                        'symbol': inst['symbol'],
+                        'entry_price': entry_price,
+                        'entry_time': time
+                    }
+                    put_traded_today = True
+                    logging.info(f"Bought PUT {strike} at {entry_price}")
     else:
         # Manage position
         current_price = get_ltp(position['instrument_token'])
-        profit = position['entry_price'] - current_price  # Profit when price decreases
-        if profit >= 10:
-            # Target hit, buy back
-            place_order(position['instrument_token'], "BUY", 25, position['symbol'])
+        profit = current_price - position['entry_price']  # Profit when price increases (since buying)
+        if profit >= TARGET:
+            # Target hit, sell back
+            place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
             logging.info(f"Target hit, profit {profit}")
             position = None
-        elif profit <= -13:
-            # Stop loss, buy back
-            place_order(position['instrument_token'], "BUY", 25, position['symbol'])
+        elif profit <= -STOP_LOSS:
+            # Stop loss, sell back
+            place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
             logging.info(f"Stop loss hit, loss {profit}")
             position = None
-        elif time.time() >= exit_time:
+        elif time.time() >= EXIT_TIME:
             # Exit
-            place_order(position['instrument_token'], "BUY", 25, position['symbol'])
+            place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
             logging.info(f"Exit at {time}, profit {profit}")
             position = None
 
