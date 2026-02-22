@@ -3,3 +3,5 @@ websocket-client
 pandas
 numpy
 datetime
+logzero
+pyotp

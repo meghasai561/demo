@@ -1,0 +1,7 @@
+2026-02-22 08:23:30 - ERROR - Authentication failed
+2026-02-22 08:26:02 - INFO - Authentication successful
+2026-02-22 08:26:46 - INFO - Authentication successful
+2026-02-22 08:41:38 - INFO - Authentication successful
+2026-02-22 08:41:38 - INFO - Current BankNifty expiry set to: 2026-02-27
+2026-02-22 08:41:38 - INFO - Websocket connected
+2026-02-22 08:41:38 - INFO - WebSocket opened

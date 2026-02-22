@@ -1,19 +1,26 @@
 import datetime
 import time
 import json
-import pandas as pd
+import logging
+import pyotp
+import requests
 from SmartApi import SmartConnect
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
-import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure logging to file
+logging.basicConfig(
+    filename='trading_log.txt',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 # Configuration - Replace with your actual credentials
-API_KEY = "your_api_key"
-CLIENT_ID = "your_client_id"
-PASSWORD = "your_password"
-TOTP_PIN = "your_totp_pin"  # Or generate dynamically
+API_KEY = "UqpiUvRZ"
+CLIENT_ID = "S387905"
+PASSWORD = "5612"
+TOTP_SECRET = "PTHQZWA2P75ES2ENO3UILLSAJY"  # Your TOTP secret from QR code
+IS_PAPER = True  # Set to False for live trading
 IS_PAPER = True  # Set to False for live trading
 
 # Tokens
@@ -23,8 +30,8 @@ EXCHANGE = "NSE"
 # Trading Parameters
 ENTRY_THRESHOLD = 35  # Points above/below 30-min high/low to enter
 TARGET = 10  # Profit target in points
-STOP_LOSS = 13  # Stop loss in points
-LOT_SIZE = 25  # BankNifty options lot size
+STOP_LOSS = 35  # Stop loss in points
+LOT_SIZE = 30  # BankNifty options lot size
 STRIKE_INTERVAL = 100  # BankNifty strike interval
 NO_ENTRY_AFTER = datetime.time(15, 5)  # No new entries after 3:05 PM
 EXIT_TIME = datetime.time(15, 15)  # Exit positions by 3:15 PM
@@ -41,42 +48,55 @@ candle_interval = 30  # Start with 30 min, then switch to 3 min
 current_expiry = None
 call_traded_today = False  # Track if CALL leg traded today
 put_traded_today = False  # Track if PUT leg traded today
+instruments = []  # List of NFO instruments
 market_open = datetime.time(9, 15)
 market_close = datetime.time(15, 30)
 
 def authenticate():
-    global smart_api, current_expiry
-    smart_api = SmartConnect(api_key=API_KEY, isDemo=IS_PAPER)
+    global smart_api, current_expiry, instruments
+    smart_api = SmartConnect(api_key=API_KEY)
+    # Generate TOTP
+    totp = pyotp.TOTP(TOTP_SECRET)
+    TOTP_PIN = totp.now()
     # Generate session
     data = smart_api.generateSession(CLIENT_ID, PASSWORD, TOTP_PIN)
     if data['status']:
         logging.info("Authentication successful")
-        # Get current expiry for BankNifty
-        instruments = smart_api.getInstruments('NFO')
-        banknifty_options = [i for i in instruments if i.get('name') == 'BANKNIFTY']
-        if banknifty_options:
-            expiries = []
-            for opt in banknifty_options:
-                try:
-                    exp_date = datetime.datetime.strptime(opt['expiry'], '%d%b%Y').date()
-                    expiries.append(exp_date)
-                except:
-                    pass
-            if expiries:
-                current_expiry = min(expiries)
-                logging.info(f"Current BankNifty expiry: {current_expiry}")
+        # Fetch instrument list
+        try:
+            response = requests.get("https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json")
+            if response.status_code == 200:
+                all_instruments = response.json()
+                instruments = [i for i in all_instruments if i.get('exch_seg') == 'NFO']
+                logging.info(f"Fetched {len(instruments)} NFO instruments")
+                # Get current expiry for BankNifty
+                banknifty_options = [i for i in instruments if i.get('name') == 'BANKNIFTY']
+                if banknifty_options:
+                    expiries = []
+                    for opt in banknifty_options:
+                        try:
+                            exp_date = datetime.datetime.strptime(opt['expiry'], '%d%b%Y').date()
+                            expiries.append(exp_date)
+                        except:
+                            pass
+                    if expiries:
+                        current_expiry = min(expiries)
+                        logging.info(f"Current BankNifty expiry: {current_expiry}")
+            else:
+                logging.error("Failed to fetch instrument list")
+        except Exception as e:
+            logging.error(f"Error fetching instruments: {e}")
         return True
     else:
-        logging.error("Authentication failed")
+        logging.error(f"Authentication failed: {data.get('message', 'Unknown error')}")
         return False
 
 def get_option_instrument(strike, option_type):
-    global current_expiry
-    if not current_expiry:
+    global current_expiry, instruments
+    if not current_expiry or not instruments:
         return None
     expiry_str = current_expiry.strftime('%d%b%Y').upper()
     symbol = f"BANKNIFTY{expiry_str}{strike}{option_type[0]}E"  # PE or CE
-    instruments = smart_api.getInstruments('NFO')
     for inst in instruments:
         if inst['symbol'] == symbol:
             return {'token': inst['token'], 'symbol': symbol}
@@ -87,7 +107,7 @@ def place_order(instrument_token, transaction_type, quantity, symbol):
         "variety": "NORMAL",
         "tradingsymbol": symbol,
         "symboltoken": instrument_token,
-        "transactiontype": transaction_type,  # "SELL"
+        "transactiontype": transaction_type,  # "BUY" or "SELL"
         "exchange": "NFO",
         "ordertype": "MARKET",
         "producttype": "INTRADAY",
@@ -95,6 +115,10 @@ def place_order(instrument_token, transaction_type, quantity, symbol):
         "quantity": quantity
     }
     response = smart_api.placeOrder(orderparams)
+    if response['status']:
+        logging.info(f"Order placed successfully: {transaction_type} {quantity} {symbol} (Token: {instrument_token})")
+    else:
+        logging.error(f"Error placing order: {response.get('message', 'Unknown error')} for {transaction_type} {quantity} {symbol}")
     return response
 
 def get_ltp(instrument_token):
@@ -186,17 +210,17 @@ def process_candle(high, low, close, time):
         if profit >= TARGET:
             # Target hit, sell back
             place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
-            logging.info(f"Target hit, profit {profit}")
+            logging.info(f"Target hit for {position['type']} position (Strike: {position['strike']}), profit {profit}")
             position = None
         elif profit <= -STOP_LOSS:
             # Stop loss, sell back
             place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
-            logging.info(f"Stop loss hit, loss {profit}")
+            logging.info(f"Stop loss hit for {position['type']} position (Strike: {position['strike']}), loss {profit}")
             position = None
         elif time.time() >= EXIT_TIME:
             # Exit
             place_order(position['instrument_token'], "SELL", LOT_SIZE, position['symbol'])
-            logging.info(f"Exit at {time}, profit {profit}")
+            logging.info(f"Exit at {time} for {position['type']} position (Strike: {position['strike']}), profit {profit}")
             position = None
 
 def on_open(ws):

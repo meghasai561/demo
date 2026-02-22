@@ -23,6 +23,15 @@ This is a production-ready trading bot for NSE BankNifty Index Options using Ang
    - Replace credentials.
 4. Run the bot: `python main.py`
 
+## Logging
+All activities, including order placements, target/stop loss hits, exits, and errors, are logged to `trading_log.txt` with timestamps. Review this file for a detailed record of the bot's actions.
+
+Example log entries:
+- `2026-02-22 09:15:00 - INFO - Authentication successful`
+- `2026-02-22 10:00:00 - INFO - Bought CALL 45100 at 150.5`
+- `2026-02-22 10:15:00 - INFO - Target hit for CALL position (Strike: 45100), profit 10.2`
+- `2026-02-22 11:30:00 - ERROR - Error placing order: Insufficient funds`
+
 ### Generating Angel One Credentials
 To use the Angel One SmartAPI, follow these steps:
 
