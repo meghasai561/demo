@@ -41,8 +41,7 @@ API_KEY = "UqpiUvRZ"
 CLIENT_ID = "S387905"
 PASSWORD = "5612"
 TOTP_SECRET = "PTHQZWA2P75ES2ENO3UILLSAJY"  # Your TOTP secret from QR code
-IS_PAPER = False  # Set to False for live trading
-IS_PAPER = False  # Set to False for live trading
+IS_PAPER = True  # Set to False for live trading
 
 # Tokens
 BANKNIFTY_TOKEN = "26009"  # BankNifty index token
@@ -144,31 +143,48 @@ def place_order(instrument_token, transaction_type, quantity, symbol):
         logging.error(f"Error placing order: {response.get('message', 'Unknown error')} for {transaction_type} {quantity} {symbol}")
     return response
 
-def get_historical_candle(token, from_time, to_time, interval='30'):
-    # Fetch historical candle data
+def get_historical_candle(token, from_time, to_time):
     try:
-        logging.info(f"Fetching historical candle for token {token} from {from_time} to {to_time}")
+        logging.info(f"Fetching historical candle for token {token}")
+
+        # Convert to IST naive datetime
+        from_str = from_time.strftime('%Y-%m-%d %H:%M')
+        to_str = to_time.strftime('%Y-%m-%d %H:%M')
+
         params = {
             "exchange": "NSE",
             "symboltoken": token,
-            "interval": "30",
-            "fromdate": from_time.strftime('%Y-%m-%d %H:%M:%S'),
-            "todate": to_time.strftime('%Y-%m-%d %H:%M:%S')
+            "interval": "THIRTY_MINUTE",
+            "fromdate": from_str,
+            "todate": to_str
         }
-        data = smart_api.getCandleData(params)
-        logging.info(f"Historical data response: {data}")
-        if data and 'data' in data and data['data']:
-            candle = data['data'][0]  # Assuming one candle
-            return {
-                'high': float(candle[2]),
-                'low': float(candle[3])
-            }
-        else:
-            logging.error("No data in historical response")
-    except Exception as e:
-        logging.error(f"Error fetching historical candle: {e}")
-    return None
 
+        logging.info(f"Historical params: {params}")
+
+        logging.info(f"FROM: {from_str}")
+        logging.info(f"TO: {to_str}")
+        logging.info(f"INTERVAL: {interval}")
+        logging.info(f"DATE TODAY: {datetime.date.today()}")
+
+        data = smart_api.getCandleData(params)
+
+        logging.info(f"Historical response: {data}")
+
+        if data and data.get("data"):
+            candle = data["data"][0]
+
+            return {
+                "high": float(candle[2]),
+                "low": float(candle[3])
+            }
+
+        else:
+            logging.error("No candle data returned")
+
+    except Exception as e:
+        logging.error(f"Historical fetch error: {e}")
+
+    return None
 def on_message(ws, message):
     global first_candle_high, first_candle_low, position, candle_data, last_candle_time
     try:
@@ -337,17 +353,19 @@ def main():
     market_open_dt = datetime.datetime.combine(today, market_open, tzinfo=ist)
     current_dt = datetime.datetime.now(ist)
     if current_dt >= market_open_dt + first_candle_duration:
-        # Fetch historical or set dummy
-        historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt, market_open_dt + first_candle_duration)
+        # Fetch historical
+        historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt.replace(tzinfo=None), (market_open_dt + first_candle_duration).replace(tzinfo=None))
         if historical:
             global first_candle_high, first_candle_low
             first_candle_high = historical['high']
             first_candle_low = historical['low']
             logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (from historical data)")
         else:
+            # If historical fails, use dummy
             first_candle_high = 45000.0
             first_candle_low = 44800.0
             logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (dummy values - historical fetch failed)")
+    # If started before 9:45, first_candle_high remains None, will be set from live ticks
     start_websocket()
     # Keep running
     while True:
