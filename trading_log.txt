@@ -100,3 +100,80 @@
 2026-02-23 04:43:39 - INFO - tearing down on exception 
 2026-02-23 04:43:39 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x74368b688080>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
 2026-02-23 04:43:39 - ERROR - WebSocket error: Connection closed
+2026-02-23 04:44:52 - INFO - Authentication successful
+2026-02-23 04:44:53 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:44:53 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:44:53 - INFO - Websocket connected
+2026-02-23 04:44:53 - INFO - WebSocket opened
+2026-02-23 04:46:19 - INFO - Authentication successful
+2026-02-23 04:46:19 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:46:19 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:46:19 - INFO - Fetching historical candle for token 26009 from 2026-02-23 04:00:00 to 2026-02-23 04:30:00
+2026-02-23 04:46:19 - ERROR - Error fetching historical candle: 'SmartConnect' object has no attribute 'candleData'
+2026-02-23 04:46:19 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 04:46:19 - INFO - Websocket connected
+2026-02-23 04:46:19 - INFO - WebSocket opened
+2026-02-23 04:47:25 - INFO - Authentication successful
+2026-02-23 04:47:26 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:47:26 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:47:26 - INFO - Fetching historical candle for token 26009 from 2026-02-23 04:00:00 to 2026-02-23 04:30:00
+2026-02-23 04:47:26 - ERROR - Error fetching historical candle: 'SmartConnect' object has no attribute 'candleData'
+2026-02-23 04:47:26 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 04:47:26 - INFO - Websocket connected
+2026-02-23 04:47:26 - INFO - WebSocket opened
+2026-02-23 04:48:29 - INFO - Authentication successful
+2026-02-23 04:48:30 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:48:30 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:48:30 - INFO - Websocket connected
+2026-02-23 04:48:30 - INFO - WebSocket opened
+2026-02-23 04:50:06 - INFO - tearing down on exception 
+2026-02-23 04:50:06 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x7f01a7420110>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
+2026-02-23 04:50:06 - ERROR - WebSocket error: Connection closed
+2026-02-23 04:50:15 - INFO - Authentication successful
+2026-02-23 04:50:15 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:50:15 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:50:16 - INFO - Websocket connected
+2026-02-23 04:50:16 - INFO - WebSocket opened
+2026-02-23 10:23:41 - INFO - Authentication successful
+2026-02-23 10:23:42 - INFO - Fetched 49415 NFO instruments
+2026-02-23 10:23:42 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 10:23:42 - INFO - Websocket connected
+2026-02-23 10:23:42 - INFO - WebSocket opened
+2026-02-23 10:26:27 - INFO - Authentication successful
+2026-02-23 10:26:28 - INFO - Fetched 49415 NFO instruments
+2026-02-23 10:26:28 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 10:26:28 - INFO - Fetching historical candle for token 26009 from 2026-02-23 09:15:00+05:30 to 2026-02-23 09:45:00+05:30
+2026-02-23 10:26:28 - ERROR - Error fetching historical candle: 'SmartConnect' object has no attribute 'candleData'
+2026-02-23 10:26:28 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 10:26:29 - INFO - Websocket connected
+2026-02-23 10:26:29 - INFO - WebSocket opened
+2026-02-23 10:28:50 - INFO - Authentication successful
+2026-02-23 10:28:51 - INFO - Fetched 49415 NFO instruments
+2026-02-23 10:28:51 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 10:28:51 - INFO - Fetching historical candle for token 26009 from 2026-02-23 09:15:00+05:30 to 2026-02-23 09:45:00+05:30
+2026-02-23 10:28:51 - ERROR - Error fetching historical candle: 'message'
+2026-02-23 10:28:51 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 10:28:51 - INFO - Websocket connected
+2026-02-23 10:28:51 - INFO - WebSocket opened
+2026-02-23 10:30:28 - INFO - Authentication successful
+2026-02-23 10:30:29 - INFO - Fetched 49415 NFO instruments
+2026-02-23 10:30:29 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 10:30:29 - INFO - Fetching historical candle for token 26009 from 2026-02-23 09:15:00+05:30 to 2026-02-23 09:45:00+05:30
+2026-02-23 10:30:29 - ERROR - Error fetching historical candle: 'message'
+2026-02-23 10:30:29 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 10:30:29 - INFO - Websocket connected
+2026-02-23 10:30:29 - INFO - WebSocket opened
+2026-02-23 05:00:43 - INFO - tearing down on exception 
+2026-02-23 05:00:43 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x7d3e215ec0b0>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
+2026-02-23 05:00:43 - ERROR - WebSocket error: Connection closed
+2026-02-23 10:31:02 - INFO - Authentication successful
+2026-02-23 10:31:03 - INFO - Fetched 49415 NFO instruments
+2026-02-23 10:31:03 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 10:31:03 - INFO - Fetching historical candle for token 26009 from 2026-02-23 09:15:00+05:30 to 2026-02-23 09:45:00+05:30
+2026-02-23 10:31:03 - ERROR - Error fetching historical candle: 'message'
+2026-02-23 10:31:03 - INFO - First candle high: 45000.0, low: 44800.0 (dummy values - historical fetch failed)
+2026-02-23 10:31:05 - INFO - Websocket connected
+2026-02-23 10:31:05 - INFO - WebSocket opened
+2026-02-23 10:34:29 - INFO - tearing down on exception 
+2026-02-23 10:34:29 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x708caccd8380>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
+2026-02-23 10:34:29 - ERROR - WebSocket error: Connection closed

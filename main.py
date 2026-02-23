@@ -7,25 +7,42 @@ import requests
 from datetime import timedelta
 from SmartApi import SmartConnect
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
+import zoneinfo
 
-# Set logging to use local time instead of UTC
-logging.Formatter.converter = time.localtime
+# Custom logging formatter to use IST
+class ISTFormatter(logging.Formatter):
+    def formatTime(self, record, datefmt=None):
+        ct = datetime.datetime.fromtimestamp(record.created, tz=zoneinfo.ZoneInfo("Asia/Kolkata"))
+        if datefmt:
+            s = ct.strftime(datefmt)
+        else:
+            s = ct.strftime(self.default_time_format)
+        return s
 
-# Configure logging to file
+# Set global logging converter to IST for all loggers
+def ist_converter(*args):
+    return time.struct_time(time.gmtime(time.time() + 5.5 * 3600))
+
+logging.Formatter.converter = ist_converter
+
+# Configure logging to file with IST
 logging.basicConfig(
     filename='trading_log.txt',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
+# Set the formatter to use IST
+for handler in logging.getLogger().handlers:
+    handler.setFormatter(ISTFormatter('%(asctime)s - %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S'))
 
 # Configuration - Replace with your actual credentials
 API_KEY = "UqpiUvRZ"
 CLIENT_ID = "S387905"
 PASSWORD = "5612"
 TOTP_SECRET = "PTHQZWA2P75ES2ENO3UILLSAJY"  # Your TOTP secret from QR code
-IS_PAPER = True  # Set to False for live trading
-IS_PAPER = True  # Set to False for live trading
+IS_PAPER = False  # Set to False for live trading
+IS_PAPER = False  # Set to False for live trading
 
 # Tokens
 BANKNIFTY_TOKEN = "26009"  # BankNifty index token
@@ -134,11 +151,11 @@ def get_historical_candle(token, from_time, to_time, interval='30'):
         params = {
             "exchange": "NSE",
             "symboltoken": token,
-            "interval": interval,
-            "fromdate": from_time.strftime('%Y-%m-%d %H:%M'),
-            "todate": to_time.strftime('%Y-%m-%d %H:%M')
+            "interval": "30",
+            "fromdate": from_time.strftime('%Y-%m-%d %H:%M:%S'),
+            "todate": to_time.strftime('%Y-%m-%d %H:%M:%S')
         }
-        data = smart_api.candleData(params)
+        data = smart_api.getCandleData(params)
         logging.info(f"Historical data response: {data}")
         if data and 'data' in data and data['data']:
             candle = data['data'][0]  # Assuming one candle
@@ -294,8 +311,8 @@ def on_open(ws):
 def on_error(ws, error):
     logging.error(f"WebSocket error: {error}")
 
-def on_close(ws, close_status_code, close_msg):
-    logging.info("WebSocket closed")
+def on_close(ws, *args):
+    logging.info(f"WebSocket closed with args: {args}")
 
 def start_websocket():
     global web_socket
@@ -316,8 +333,9 @@ def main():
         return
     # Set first candle if started after 9:45
     today = datetime.date.today()
-    market_open_dt = datetime.datetime.combine(today, market_open)
-    current_dt = datetime.datetime.now()
+    ist = zoneinfo.ZoneInfo("Asia/Kolkata")
+    market_open_dt = datetime.datetime.combine(today, market_open, tzinfo=ist)
+    current_dt = datetime.datetime.now(ist)
     if current_dt >= market_open_dt + first_candle_duration:
         # Fetch historical or set dummy
         historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt, market_open_dt + first_candle_duration)

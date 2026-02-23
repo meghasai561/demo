@@ -22,12 +22,15 @@ This is a production-ready trading bot for NSE BankNifty Index Options using Ang
    - Set `IS_PAPER = True` for demo/paper trading, `False` for live.
    - Replace credentials.
 4. Run the bot: `python main.py`
+   - For best results, start the bot before 9:15 AM to capture the first 30-min candle live.
+   - If starting after 9:45 AM, the bot will attempt to fetch historical data for the first candle or use dummy values if fetch fails (check logs).
 
 ## Logging
 All activities, including order placements, target/stop loss hits, exits, and errors, are logged to `trading_log.txt` with timestamps. Review this file for a detailed record of the bot's actions.
 
 Example log entries:
 - `2026-02-22 09:15:00 - INFO - Authentication successful`
+- `2026-02-22 09:45:00 - INFO - First candle high: 45000.0, low: 44800.0 (from historical data)`
 - `2026-02-22 10:00:00 - INFO - Bought CALL 45100 at 150.5`
 - `2026-02-22 10:15:00 - INFO - Target hit for CALL position (Strike: 45100), profit 10.2`
 - `2026-02-22 11:30:00 - ERROR - Error placing order: Insufficient funds`
