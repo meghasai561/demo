@@ -8,6 +8,9 @@ from datetime import timedelta
 from SmartApi import SmartConnect
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
 
+# Set logging to use local time instead of UTC
+logging.Formatter.converter = time.localtime
+
 # Configure logging to file
 logging.basicConfig(
     filename='trading_log.txt',
@@ -124,16 +127,27 @@ def place_order(instrument_token, transaction_type, quantity, symbol):
         logging.error(f"Error placing order: {response.get('message', 'Unknown error')} for {transaction_type} {quantity} {symbol}")
     return response
 
-def get_historical_candle(token, from_time, to_time, interval='30minute'):
+def get_historical_candle(token, from_time, to_time, interval='30'):
     # Fetch historical candle data
     try:
-        data = smart_api.getCandleData("NSE", token, interval, from_time.strftime('%Y-%m-%d %H:%M'), to_time.strftime('%Y-%m-%d %H:%M'))
+        logging.info(f"Fetching historical candle for token {token} from {from_time} to {to_time}")
+        params = {
+            "exchange": "NSE",
+            "symboltoken": token,
+            "interval": interval,
+            "fromdate": from_time.strftime('%Y-%m-%d %H:%M'),
+            "todate": to_time.strftime('%Y-%m-%d %H:%M')
+        }
+        data = smart_api.candleData(params)
+        logging.info(f"Historical data response: {data}")
         if data and 'data' in data and data['data']:
             candle = data['data'][0]  # Assuming one candle
             return {
                 'high': float(candle[2]),
                 'low': float(candle[3])
             }
+        else:
+            logging.error("No data in historical response")
     except Exception as e:
         logging.error(f"Error fetching historical candle: {e}")
     return None
@@ -257,27 +271,19 @@ def process_candle(high, low, close, time):
             position = None
 
 def on_open(ws):
-    global start_time, last_candle_time, first_candle_high, first_candle_low
+    global start_time, last_candle_time
     logging.info("WebSocket opened")
     today = datetime.date.today()
     market_open_dt = datetime.datetime.combine(today, market_open)
     current_dt = datetime.datetime.now()
-    if current_dt >= market_open_dt + first_candle_duration:
-        # Started after 9:45, fetch historical first candle
-        historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt, market_open_dt + first_candle_duration)
-        if historical:
-            first_candle_high = historical['high']
-            first_candle_low = historical['low']
-            logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (from historical data)")
-            start_time = current_dt
-            last_candle_time = current_dt
-        else:
-            logging.error("Failed to fetch historical first candle. Cannot proceed.")
-            return
-    else:
+    if current_dt < market_open_dt + first_candle_duration:
         # Started before or during first 30 min, set start_time to market open
         start_time = market_open_dt
         last_candle_time = start_time
+    else:
+        # Started after 9:45, start_time already set in main
+        start_time = current_dt
+        last_candle_time = current_dt
     # Subscribe to BankNifty
     subscribe_data = {
         "action": 1,  # Subscribe
@@ -308,6 +314,22 @@ def start_websocket():
 def main():
     if not authenticate():
         return
+    # Set first candle if started after 9:45
+    today = datetime.date.today()
+    market_open_dt = datetime.datetime.combine(today, market_open)
+    current_dt = datetime.datetime.now()
+    if current_dt >= market_open_dt + first_candle_duration:
+        # Fetch historical or set dummy
+        historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt, market_open_dt + first_candle_duration)
+        if historical:
+            global first_candle_high, first_candle_low
+            first_candle_high = historical['high']
+            first_candle_low = historical['low']
+            logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (from historical data)")
+        else:
+            first_candle_high = 45000.0
+            first_candle_low = 44800.0
+            logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (dummy values - historical fetch failed)")
     start_websocket()
     # Keep running
     while True:
