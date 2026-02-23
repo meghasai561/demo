@@ -5,3 +5,29 @@
 2026-02-22 08:41:38 - INFO - Current BankNifty expiry set to: 2026-02-27
 2026-02-22 08:41:38 - INFO - Websocket connected
 2026-02-22 08:41:38 - INFO - WebSocket opened
+2026-02-22 17:14:40 - INFO - Authentication successful
+2026-02-22 17:14:41 - INFO - Fetched 49415 NFO instruments
+2026-02-22 17:14:41 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-22 17:14:41 - INFO - Websocket connected
+2026-02-22 17:14:41 - INFO - WebSocket opened
+2026-02-22 18:46:45 - INFO - tearing down on exception 
+2026-02-22 18:46:45 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x7e1287ab8050>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
+2026-02-22 18:46:45 - ERROR - WebSocket error: Connection closed
+2026-02-23 03:55:28 - INFO - Authentication successful
+2026-02-23 03:55:29 - INFO - Fetched 49415 NFO instruments
+2026-02-23 03:55:29 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 03:55:29 - INFO - Websocket connected
+2026-02-23 03:55:29 - INFO - WebSocket opened
+2026-02-23 04:22:07 - INFO - Authentication successful
+2026-02-23 04:22:07 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:22:07 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:22:08 - INFO - Websocket connected
+2026-02-23 04:22:08 - INFO - WebSocket opened
+2026-02-23 04:29:52 - INFO - Authentication successful
+2026-02-23 04:29:53 - INFO - Fetched 49415 NFO instruments
+2026-02-23 04:29:53 - INFO - Current BankNifty expiry: 2026-02-24
+2026-02-23 04:29:53 - INFO - Websocket connected
+2026-02-23 04:29:53 - INFO - WebSocket opened
+2026-02-23 04:30:53 - INFO - tearing down on exception 
+2026-02-23 04:30:53 - ERROR - error from callback <bound method SmartWebSocketV2._on_close of <SmartApi.smartWebSocketV2.SmartWebSocketV2 object at 0x702213f30050>>: SmartWebSocketV2._on_close() takes 2 positional arguments but 4 were given
+2026-02-23 04:30:53 - ERROR - WebSocket error: Connection closed

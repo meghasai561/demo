@@ -4,6 +4,7 @@ import json
 import logging
 import pyotp
 import requests
+from datetime import timedelta
 from SmartApi import SmartConnect
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
 
@@ -43,12 +44,14 @@ first_candle_high = None
 first_candle_low = None
 position = None  # {'type': 'PUT' or 'CALL', 'strike': , 'instrument_token': , 'entry_price': , 'entry_time': }
 candle_data = []  # List of ticks for current candle
-current_candle_start = None
-candle_interval = 30  # Start with 30 min, then switch to 3 min
 current_expiry = None
 call_traded_today = False  # Track if CALL leg traded today
 put_traded_today = False  # Track if PUT leg traded today
 instruments = []  # List of NFO instruments
+start_time = None  # Time when WebSocket opens (market start)
+last_candle_time = None  # Last time a candle was processed
+first_candle_duration = timedelta(minutes=30)
+subsequent_candle_duration = timedelta(minutes=3)
 market_open = datetime.time(9, 15)
 market_close = datetime.time(15, 30)
 
@@ -121,14 +124,27 @@ def place_order(instrument_token, transaction_type, quantity, symbol):
         logging.error(f"Error placing order: {response.get('message', 'Unknown error')} for {transaction_type} {quantity} {symbol}")
     return response
 
-def get_ltp(instrument_token):
-    ltp_data = smart_api.ltpData("NFO", instrument_token, "symbol")
-    return ltp_data['data']['ltp']
+def get_historical_candle(token, from_time, to_time, interval='30minute'):
+    # Fetch historical candle data
+    try:
+        data = smart_api.getCandleData("NSE", token, interval, from_time.strftime('%Y-%m-%d %H:%M'), to_time.strftime('%Y-%m-%d %H:%M'))
+        if data and 'data' in data and data['data']:
+            candle = data['data'][0]  # Assuming one candle
+            return {
+                'high': float(candle[2]),
+                'low': float(candle[3])
+            }
+    except Exception as e:
+        logging.error(f"Error fetching historical candle: {e}")
+    return None
 
 def on_message(ws, message):
-    global first_candle_high, first_candle_low, position, candle_data, current_candle_start, candle_interval
-    data = json.loads(message)
-    if 'data' in data:
+    global first_candle_high, first_candle_low, position, candle_data, last_candle_time
+    try:
+        data = json.loads(message)
+        if 'data' not in data:
+            return
+        
         for tick in data['data']:
             timestamp = datetime.datetime.fromtimestamp(tick['timestamp'])
             ltp = tick['ltp']
@@ -136,23 +152,40 @@ def on_message(ws, message):
             high = ltp
             low = ltp
             close = ltp
-
-            # Aggregate into candles
-            if current_candle_start is None:
-                current_candle_start = timestamp.replace(minute=(timestamp.minute // candle_interval) * candle_interval, second=0, microsecond=0)
-            if timestamp - current_candle_start >= datetime.timedelta(minutes=candle_interval):
-                # Process previous candle
-                if candle_data:
-                    candle_high = max([d['high'] for d in candle_data])
-                    candle_low = min([d['low'] for d in candle_data])
-                    candle_close = candle_data[-1]['close']
-                    process_candle(candle_high, candle_low, candle_close, current_candle_start)
-                candle_data = []
-                current_candle_start = timestamp.replace(minute=(timestamp.minute // candle_interval) * candle_interval, second=0, microsecond=0)
-                if candle_interval == 30:
-                    candle_interval = 3  # Switch to 3 min after first candle
-
             candle_data.append({'high': high, 'low': low, 'close': close, 'time': timestamp})
+        
+        current_time = datetime.datetime.now()
+        
+        # Determine candle duration
+        if first_candle_high is None:
+            candle_duration = first_candle_duration
+        else:
+            candle_duration = subsequent_candle_duration
+        
+        # Check if enough time has passed for a new candle
+        if current_time >= last_candle_time + candle_duration and candle_data:
+            # Calculate candle high, low, close
+            prices = [d['close'] for d in candle_data]  # Use close for simplicity, or calculate properly
+            candle_high = max([d['high'] for d in candle_data])
+            candle_low = min([d['low'] for d in candle_data])
+            candle_close = candle_data[-1]['close']
+            candle_time = candle_data[-1]['time']
+            
+            if first_candle_high is None:
+                # Set first 30-min candle
+                first_candle_high = candle_high
+                first_candle_low = candle_low
+                logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low}")
+            else:
+                # Process subsequent 3-min candles
+                process_candle(candle_high, candle_low, candle_close, candle_time)
+            
+            # Reset for next candle
+            candle_data = []
+            last_candle_time = current_time
+    
+    except Exception as e:
+        logging.error(f"Error in on_message: {e}")
 
 def process_candle(high, low, close, time):
     global first_candle_high, first_candle_low, position, call_traded_today, put_traded_today
@@ -224,7 +257,27 @@ def process_candle(high, low, close, time):
             position = None
 
 def on_open(ws):
+    global start_time, last_candle_time, first_candle_high, first_candle_low
     logging.info("WebSocket opened")
+    today = datetime.date.today()
+    market_open_dt = datetime.datetime.combine(today, market_open)
+    current_dt = datetime.datetime.now()
+    if current_dt >= market_open_dt + first_candle_duration:
+        # Started after 9:45, fetch historical first candle
+        historical = get_historical_candle(BANKNIFTY_TOKEN, market_open_dt, market_open_dt + first_candle_duration)
+        if historical:
+            first_candle_high = historical['high']
+            first_candle_low = historical['low']
+            logging.info(f"First candle high: {first_candle_high}, low: {first_candle_low} (from historical data)")
+            start_time = current_dt
+            last_candle_time = current_dt
+        else:
+            logging.error("Failed to fetch historical first candle. Cannot proceed.")
+            return
+    else:
+        # Started before or during first 30 min, set start_time to market open
+        start_time = market_open_dt
+        last_candle_time = start_time
     # Subscribe to BankNifty
     subscribe_data = {
         "action": 1,  # Subscribe
