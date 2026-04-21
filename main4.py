@@ -13,8 +13,14 @@ Strategy:
 IS_PAPER = True  → Paper (simulated)
 IS_PAPER = False → Live  (real orders)
 command to run - nohup python main4.py &
-"""
 
+ps aux | grep main4
+kill <PID>
+nohup python main4.py > trading_log.txt 2>&1 &
+tail -f trading_log.txt
+"""
+# vkmm0qon -APIKEY
+# Secret KEy - 726bd2da-a1fa-427c-b87c-0c13635057f5 These are latest values
 import datetime
 import time
 import logging
@@ -50,7 +56,7 @@ log = logging.getLogger("BNStrategy")
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════
 
-API_KEY     = "UqpiUvRZ"
+API_KEY     = "vkmm0qon"
 CLIENT_ID   = "S387905"
 PASSWORD    = "5612"
 TOTP_SECRET = "PTHQZWA2P75ES2ENO3UILLSAJY"
@@ -226,64 +232,50 @@ def get_atm_strike(ltp: float) -> float:
 
 
 def find_option(strike: float, option_type: str):
+     
     if current_expiry is None:
         log.error("Expiry not set")
         return None
 
-    # AngelOne has used different formats across scrip master versions
-    # Try all known formats for the strike field
+    # AngelOne scrip master stores strike as (strike × 100) with 6 decimal places
+    # Confirmed from log: strike='6150000.000000'
+    # So 54700 → "5470000.000000"
     strike_variants = [
-        str(int(strike)),           # "52000"      ← most common
-        str(int(strike * 100)),     # "5200000"    ← older format
-        str(float(strike)),         # "52000.0"    ← rare
-        f"{int(strike)}.00",        # "52000.00"   ← rare
+        f"{strike * 100:.6f}",     # "5470000.000000"  ← confirmed current format
+        f"{strike * 100:.2f}",     # "5470000.00"
+        str(int(strike * 100)),    # "5470000"
+        str(int(strike)),          # "54700"
     ]
-
-    # AngelOne uses "OPTIDX" for index options, but some versions use "CE"/"PE"
-    instrument_types = ["OPTIDX", option_type, "OPTSTK"]
 
     for inst in instruments:
         try:
-            if inst.get("name") != "BANKNIFTY":
-                continue
+            if inst.get("name")           != "BANKNIFTY": continue
+            if inst.get("instrumenttype") != "OPTIDX":    continue
+            if not inst.get("symbol", "").endswith(option_type): continue
+            if inst.get("strike") not in strike_variants: continue
 
-            # Check expiry
             inst_expiry = datetime.datetime.strptime(
                 inst["expiry"], "%d%b%Y").date()
             if inst_expiry != current_expiry:
                 continue
 
-            # Check option type — symbol always ends in "CE" or "PE"
-            if not inst.get("symbol", "").endswith(option_type):
-                continue
-
-            # Check strike against all known formats
-            inst_strike = inst.get("strike", "")
-            if inst_strike not in strike_variants:
-                continue
-
-            log.info(f"Option found: {inst['symbol']} | token={inst['token']} "
-                     f"| strike_field='{inst_strike}' | type={inst.get('instrumenttype')}")
+            log.info(f"Option found: {inst['symbol']} | token={inst['token']}")
             return inst
 
         except Exception:
             continue
 
-    # Not found — log a sample to help debug
+    # Log a sample to help debug if still not found
     sample = next((i for i in instruments
                    if i.get("name") == "BANKNIFTY"
-                   and i.get("symbol", "").endswith(option_type)), None)
-    log.error(
-        f"Option NOT found: BANKNIFTY {int(strike)} {option_type} exp={current_expiry}"
-    )
+                   and i.get("instrumenttype") == "OPTIDX"
+                   and i.get("symbol", "").endswith(option_type)
+                   and datetime.datetime.strptime(
+                       i["expiry"], "%d%b%Y").date() == current_expiry), None)
+    log.error(f"Option NOT found: BANKNIFTY {int(strike)} {option_type} exp={current_expiry}")
     if sample:
-        log.error(
-            f"Sample {option_type} in scrip master → "
-            f"strike='{sample.get('strike')}' "
-            f"instrumenttype='{sample.get('instrumenttype')}' "
-            f"symbol='{sample.get('symbol')}' "
-            f"expiry='{sample.get('expiry')}'"
-        )
+        log.error(f"Sample {option_type} for {current_expiry} → "
+                  f"strike='{sample.get('strike')}' symbol='{sample.get('symbol')}'")
     return None
 
 def get_option_ltp_rest(token: str, symbol: str = ""):

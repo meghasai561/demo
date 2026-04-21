@@ -1193,3 +1193,329 @@
 2026-03-24 13:48:00 [ERROR] Sample PE in scrip master → strike='4900000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY30MAR2649000PE' expiry='30MAR2026'
 2026-03-24 13:48:00 [ERROR] Instrument not found — PUT skipped
 2026-03-24 13:48:00 [INFO] New candle @ 13:48 | Open=52822.5
+2026-04-13 09:18:13 [INFO] BankNifty Strategy | PAPER TRADING
+2026-04-13 09:18:13 [INFO] Threshold=35  Target=30  SL=40  Lot=30
+[I 260413 03:48:13 smartConnect:124] in pool
+2026-04-13 09:18:13 [INFO] Generating session...
+2026-04-13 09:18:13 [INFO] Session OK  | JWT     : Bearer eyJhbGciOiJIU...
+2026-04-13 09:18:13 [INFO]             | FeedTok : eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlMzODc5MDUiLCJpYXQiOjE3NzYwNTIwOTMsImV4cCI6MTc3NjEzODQ5M30.zL4QRwdKWM_Z16n5btX-OA5nNWJBluz4_dr2qCja6Qs5C8PmBYW7_sqgT40OagyT2GnAemICKkh6tgWbM4thFQ
+2026-04-13 09:18:14 [INFO] Loaded 45650 NFO instruments
+2026-04-13 09:18:14 [INFO] Nearest expiry : 2026-04-28
+2026-04-13 09:18:14 [INFO] Connecting WebSocket...
+2026-04-13 09:18:14 [INFO] Websocket connected
+2026-04-13 09:18:14 [INFO] WebSocket OPEN — subscribing to BankNifty index
+2026-04-13 09:18:14 [INFO] New candle @ 09:15 | Open=54457.6
+2026-04-13 09:45:00 [INFO] CLOSED: Candle [09:15–09:45] O=54457.6 H=54691.2 L=54384.3 C=54679.0
+2026-04-13 09:45:00 [INFO] =======================================================
+2026-04-13 09:45:00 [INFO] 30-MIN CANDLE | HIGH=54691.2  LOW=54384.3
+2026-04-13 09:45:00 [INFO] PUT  entry if 3-min close ≥ 54726.2
+2026-04-13 09:45:00 [INFO] CALL entry if 3-min close ≤ 54349.3
+2026-04-13 09:45:00 [INFO] =======================================================
+2026-04-13 09:45:00 [INFO] New candle @ 09:45 | Open=54679.0
+2026-04-13 09:48:00 [INFO] CLOSED: Candle [09:45–09:48] O=54679.0 H=54680.1 L=54624.4 C=54662.4
+2026-04-13 09:48:00 [INFO] New candle @ 09:48 | Open=54662.4
+2026-04-13 09:51:00 [INFO] CLOSED: Candle [09:48–09:51] O=54662.4 H=54709.6 L=54639.5 C=54706.0
+2026-04-13 09:51:00 [INFO] New candle @ 09:51 | Open=54706.0
+2026-04-13 09:54:00 [INFO] CLOSED: Candle [09:51–09:54] O=54706.0 H=54748.6 L=54687.5 C=54735.6
+2026-04-13 09:54:00 [INFO] PUT SIGNAL | close=54735.6 ≥ 30min-high(54691.2) + 35
+2026-04-13 09:54:00 [INFO] Entry signal: PUT | BankNifty=54735.6 | Strike=54700
+2026-04-13 09:54:00 [ERROR] Option NOT found: BANKNIFTY 54700 PE exp=2026-04-28
+2026-04-13 09:54:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 09:54:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 09:54:00 [INFO] New candle @ 09:54 | Open=54735.6
+2026-04-13 09:57:00 [INFO] CLOSED: Candle [09:54–09:57] O=54735.6 H=54788.7 L=54727.5 C=54786.5
+2026-04-13 09:57:00 [INFO] PUT SIGNAL | close=54786.5 ≥ 30min-high(54691.2) + 35
+2026-04-13 09:57:00 [INFO] Entry signal: PUT | BankNifty=54786.5 | Strike=54800
+2026-04-13 09:57:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 09:57:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 09:57:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 09:57:00 [INFO] New candle @ 09:57 | Open=54786.5
+2026-04-13 10:00:00 [INFO] CLOSED: Candle [09:57–10:00] O=54786.5 H=54789.3 L=54745.1 C=54755.7
+2026-04-13 10:00:00 [INFO] PUT SIGNAL | close=54755.7 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:00:00 [INFO] Entry signal: PUT | BankNifty=54755.7 | Strike=54800
+2026-04-13 10:00:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:00:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:00:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:00:00 [INFO] New candle @ 10:00 | Open=54755.7
+2026-04-13 10:03:00 [INFO] CLOSED: Candle [10:00–10:03] O=54755.7 H=54771.7 L=54708.6 C=54761.8
+2026-04-13 10:03:00 [INFO] PUT SIGNAL | close=54761.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:03:00 [INFO] Entry signal: PUT | BankNifty=54761.8 | Strike=54800
+2026-04-13 10:03:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:03:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:03:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:03:00 [INFO] New candle @ 10:03 | Open=54761.8
+2026-04-13 10:06:00 [INFO] CLOSED: Candle [10:03–10:06] O=54761.8 H=54796.9 L=54727.9 C=54797.8
+2026-04-13 10:06:00 [INFO] PUT SIGNAL | close=54797.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:06:00 [INFO] Entry signal: PUT | BankNifty=54797.8 | Strike=54800
+2026-04-13 10:06:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:06:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:06:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:06:00 [INFO] New candle @ 10:06 | Open=54797.8
+2026-04-13 10:09:00 [INFO] CLOSED: Candle [10:06–10:09] O=54797.8 H=54797.8 L=54749.7 C=54753.7
+2026-04-13 10:09:00 [INFO] PUT SIGNAL | close=54753.7 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:09:00 [INFO] Entry signal: PUT | BankNifty=54753.7 | Strike=54800
+2026-04-13 10:09:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:09:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:09:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:09:00 [INFO] New candle @ 10:09 | Open=54753.7
+2026-04-13 10:12:00 [INFO] CLOSED: Candle [10:09–10:12] O=54753.7 H=54787.0 L=54749.9 C=54788.3
+2026-04-13 10:12:00 [INFO] PUT SIGNAL | close=54788.3 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:12:00 [INFO] Entry signal: PUT | BankNifty=54788.3 | Strike=54800
+2026-04-13 10:12:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:12:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:12:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:12:00 [INFO] New candle @ 10:12 | Open=54788.3
+2026-04-13 10:15:00 [INFO] CLOSED: Candle [10:12–10:15] O=54788.3 H=54806.1 L=54732.6 C=54743.8
+2026-04-13 10:15:00 [INFO] PUT SIGNAL | close=54743.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:15:00 [INFO] Entry signal: PUT | BankNifty=54743.8 | Strike=54700
+2026-04-13 10:15:00 [ERROR] Option NOT found: BANKNIFTY 54700 PE exp=2026-04-28
+2026-04-13 10:15:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:15:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:15:00 [INFO] New candle @ 10:15 | Open=54743.8
+2026-04-13 10:18:00 [INFO] CLOSED: Candle [10:15–10:18] O=54743.8 H=54743.8 L=54669.6 C=54690.3
+2026-04-13 10:18:00 [INFO] New candle @ 10:18 | Open=54690.3
+2026-04-13 10:21:00 [INFO] CLOSED: Candle [10:18–10:21] O=54690.3 H=54819.8 L=54684.3 C=54822.7
+2026-04-13 10:21:00 [INFO] PUT SIGNAL | close=54822.7 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:21:00 [INFO] Entry signal: PUT | BankNifty=54822.7 | Strike=54800
+2026-04-13 10:21:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:21:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:21:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:21:00 [INFO] New candle @ 10:21 | Open=54822.7
+2026-04-13 10:24:00 [INFO] CLOSED: Candle [10:21–10:24] O=54822.7 H=54871.1 L=54821.1 C=54841.4
+2026-04-13 10:24:00 [INFO] PUT SIGNAL | close=54841.4 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:24:00 [INFO] Entry signal: PUT | BankNifty=54841.4 | Strike=54800
+2026-04-13 10:24:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:24:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:24:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:24:00 [INFO] New candle @ 10:24 | Open=54841.4
+2026-04-13 10:27:00 [INFO] CLOSED: Candle [10:24–10:27] O=54841.4 H=54901.0 L=54838.4 C=54903.7
+2026-04-13 10:27:00 [INFO] PUT SIGNAL | close=54903.7 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:27:00 [INFO] Entry signal: PUT | BankNifty=54903.7 | Strike=54900
+2026-04-13 10:27:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:27:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:27:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:27:00 [INFO] New candle @ 10:27 | Open=54903.7
+2026-04-13 10:30:00 [INFO] CLOSED: Candle [10:27–10:30] O=54903.7 H=54942.2 L=54882.7 C=54902.4
+2026-04-13 10:30:00 [INFO] PUT SIGNAL | close=54902.4 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:30:00 [INFO] Entry signal: PUT | BankNifty=54902.4 | Strike=54900
+2026-04-13 10:30:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:30:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:30:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:30:00 [INFO] New candle @ 10:30 | Open=54902.4
+2026-04-13 10:33:00 [INFO] CLOSED: Candle [10:30–10:33] O=54902.4 H=54934.6 L=54888.2 C=54910.8
+2026-04-13 10:33:00 [INFO] PUT SIGNAL | close=54910.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:33:00 [INFO] Entry signal: PUT | BankNifty=54910.8 | Strike=54900
+2026-04-13 10:33:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:33:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:33:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:33:00 [INFO] New candle @ 10:33 | Open=54910.8
+2026-04-13 10:36:00 [INFO] CLOSED: Candle [10:33–10:36] O=54910.8 H=54921.2 L=54847.8 C=54855.6
+2026-04-13 10:36:00 [INFO] PUT SIGNAL | close=54855.6 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:36:00 [INFO] Entry signal: PUT | BankNifty=54855.6 | Strike=54900
+2026-04-13 10:36:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:36:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:36:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:36:00 [INFO] New candle @ 10:36 | Open=54855.6
+2026-04-13 10:39:00 [INFO] CLOSED: Candle [10:36–10:39] O=54855.6 H=54881.5 L=54818.2 C=54860.5
+2026-04-13 10:39:00 [INFO] PUT SIGNAL | close=54860.5 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:39:00 [INFO] Entry signal: PUT | BankNifty=54860.5 | Strike=54900
+2026-04-13 10:39:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:39:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:39:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:39:00 [INFO] New candle @ 10:39 | Open=54860.5
+2026-04-13 10:42:00 [INFO] CLOSED: Candle [10:39–10:42] O=54860.5 H=54939.4 L=54807.6 C=54834.7
+2026-04-13 10:42:00 [INFO] PUT SIGNAL | close=54834.7 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:42:00 [INFO] Entry signal: PUT | BankNifty=54834.7 | Strike=54800
+2026-04-13 10:42:00 [ERROR] Option NOT found: BANKNIFTY 54800 PE exp=2026-04-28
+2026-04-13 10:42:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:42:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:42:00 [INFO] New candle @ 10:42 | Open=54834.7
+2026-04-13 10:45:00 [INFO] CLOSED: Candle [10:42–10:45] O=54834.7 H=54916.6 L=54826.7 C=54909.5
+2026-04-13 10:45:00 [INFO] PUT SIGNAL | close=54909.5 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:45:00 [INFO] Entry signal: PUT | BankNifty=54909.5 | Strike=54900
+2026-04-13 10:45:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:45:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:45:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:45:00 [INFO] New candle @ 10:45 | Open=54909.5
+2026-04-13 10:48:00 [INFO] CLOSED: Candle [10:45–10:48] O=54909.5 H=54979.9 L=54902.1 C=54951.6
+2026-04-13 10:48:00 [INFO] PUT SIGNAL | close=54951.6 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:48:00 [INFO] Entry signal: PUT | BankNifty=54951.6 | Strike=55000
+2026-04-13 10:48:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 10:48:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:48:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:48:00 [INFO] New candle @ 10:48 | Open=54951.6
+2026-04-13 10:51:00 [INFO] CLOSED: Candle [10:48–10:51] O=54951.6 H=54977.7 L=54927.6 C=54942.4
+2026-04-13 10:51:00 [INFO] PUT SIGNAL | close=54942.4 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:51:00 [INFO] Entry signal: PUT | BankNifty=54942.4 | Strike=54900
+2026-04-13 10:51:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 10:51:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:51:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:51:00 [INFO] New candle @ 10:51 | Open=54942.4
+2026-04-13 10:54:00 [INFO] CLOSED: Candle [10:51–10:54] O=54942.4 H=54995.8 L=54928.8 C=54981.0
+2026-04-13 10:54:00 [INFO] PUT SIGNAL | close=54981.0 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:54:00 [INFO] Entry signal: PUT | BankNifty=54981.0 | Strike=55000
+2026-04-13 10:54:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 10:54:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:54:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:54:00 [INFO] New candle @ 10:54 | Open=54981.0
+2026-04-13 10:57:00 [INFO] CLOSED: Candle [10:54–10:57] O=54981.0 H=55018.7 L=54969.4 C=54999.2
+2026-04-13 10:57:00 [INFO] PUT SIGNAL | close=54999.2 ≥ 30min-high(54691.2) + 35
+2026-04-13 10:57:00 [INFO] Entry signal: PUT | BankNifty=54999.2 | Strike=55000
+2026-04-13 10:57:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 10:57:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 10:57:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 10:57:00 [INFO] New candle @ 10:57 | Open=54999.2
+2026-04-13 11:00:00 [INFO] CLOSED: Candle [10:57–11:00] O=54999.2 H=55007.2 L=54951.2 C=54960.8
+2026-04-13 11:00:00 [INFO] PUT SIGNAL | close=54960.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:00:00 [INFO] Entry signal: PUT | BankNifty=54960.8 | Strike=55000
+2026-04-13 11:00:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:00:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:00:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:00:00 [INFO] New candle @ 11:00 | Open=54960.8
+2026-04-13 11:03:00 [INFO] CLOSED: Candle [11:00–11:03] O=54960.8 H=54966.6 L=54921.6 C=54934.1
+2026-04-13 11:03:00 [INFO] PUT SIGNAL | close=54934.1 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:03:00 [INFO] Entry signal: PUT | BankNifty=54934.1 | Strike=54900
+2026-04-13 11:03:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 11:03:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:03:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:03:00 [INFO] New candle @ 11:03 | Open=54934.1
+2026-04-13 11:06:00 [INFO] CLOSED: Candle [11:03–11:06] O=54934.1 H=54977.8 L=54931.0 C=54976.9
+2026-04-13 11:06:00 [INFO] PUT SIGNAL | close=54976.9 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:06:00 [INFO] Entry signal: PUT | BankNifty=54976.9 | Strike=55000
+2026-04-13 11:06:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:06:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:06:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:06:00 [INFO] New candle @ 11:06 | Open=54976.9
+2026-04-13 11:09:00 [INFO] CLOSED: Candle [11:06–11:09] O=54976.9 H=54978.7 L=54943.7 C=54964.3
+2026-04-13 11:09:00 [INFO] PUT SIGNAL | close=54964.3 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:09:00 [INFO] Entry signal: PUT | BankNifty=54964.3 | Strike=55000
+2026-04-13 11:09:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:09:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:09:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:09:00 [INFO] New candle @ 11:09 | Open=54964.3
+2026-04-13 11:12:00 [INFO] CLOSED: Candle [11:09–11:12] O=54964.3 H=54964.3 L=54889.9 C=54911.1
+2026-04-13 11:12:00 [INFO] PUT SIGNAL | close=54911.1 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:12:00 [INFO] Entry signal: PUT | BankNifty=54911.1 | Strike=54900
+2026-04-13 11:12:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 11:12:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:12:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:12:00 [INFO] New candle @ 11:12 | Open=54911.1
+2026-04-13 11:15:00 [INFO] CLOSED: Candle [11:12–11:15] O=54911.1 H=54959.1 L=54909.6 C=54953.2
+2026-04-13 11:15:00 [INFO] PUT SIGNAL | close=54953.2 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:15:00 [INFO] Entry signal: PUT | BankNifty=54953.2 | Strike=55000
+2026-04-13 11:15:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:15:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:15:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:15:00 [INFO] New candle @ 11:15 | Open=54953.2
+2026-04-13 11:18:00 [INFO] CLOSED: Candle [11:15–11:18] O=54953.2 H=54976.6 L=54953.2 C=54969.2
+2026-04-13 11:18:00 [INFO] PUT SIGNAL | close=54969.2 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:18:00 [INFO] Entry signal: PUT | BankNifty=54969.2 | Strike=55000
+2026-04-13 11:18:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:18:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:18:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:18:00 [INFO] New candle @ 11:18 | Open=54969.2
+2026-04-13 11:21:00 [INFO] CLOSED: Candle [11:18–11:21] O=54969.2 H=54970.8 L=54931.4 C=54932.1
+2026-04-13 11:21:00 [INFO] PUT SIGNAL | close=54932.1 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:21:00 [INFO] Entry signal: PUT | BankNifty=54932.1 | Strike=54900
+2026-04-13 11:21:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 11:21:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:21:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:21:00 [INFO] New candle @ 11:21 | Open=54932.1
+2026-04-13 11:24:00 [INFO] CLOSED: Candle [11:21–11:24] O=54932.1 H=54979.2 L=54898.8 C=54952.4
+2026-04-13 11:24:00 [INFO] PUT SIGNAL | close=54952.4 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:24:00 [INFO] Entry signal: PUT | BankNifty=54952.4 | Strike=55000
+2026-04-13 11:24:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:24:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:24:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:24:00 [INFO] New candle @ 11:24 | Open=54952.4
+2026-04-13 11:27:00 [INFO] CLOSED: Candle [11:24–11:27] O=54952.4 H=54976.5 L=54939.2 C=54965.1
+2026-04-13 11:27:00 [INFO] PUT SIGNAL | close=54965.1 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:27:00 [INFO] Entry signal: PUT | BankNifty=54965.1 | Strike=55000
+2026-04-13 11:27:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:27:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:27:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:27:00 [INFO] New candle @ 11:27 | Open=54965.1
+2026-04-13 11:30:00 [INFO] CLOSED: Candle [11:27–11:30] O=54965.1 H=54965.9 L=54908.1 C=54912.0
+2026-04-13 11:30:00 [INFO] PUT SIGNAL | close=54912.0 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:30:00 [INFO] Entry signal: PUT | BankNifty=54912.0 | Strike=54900
+2026-04-13 11:30:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 11:30:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:30:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:30:00 [INFO] New candle @ 11:30 | Open=54912.0
+2026-04-13 11:33:00 [INFO] CLOSED: Candle [11:30–11:33] O=54912.0 H=54943.9 L=54890.2 C=54902.8
+2026-04-13 11:33:00 [INFO] PUT SIGNAL | close=54902.8 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:33:00 [INFO] Entry signal: PUT | BankNifty=54902.8 | Strike=54900
+2026-04-13 11:33:00 [ERROR] Option NOT found: BANKNIFTY 54900 PE exp=2026-04-28
+2026-04-13 11:33:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:33:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:33:00 [INFO] New candle @ 11:33 | Open=54902.8
+2026-04-13 11:36:00 [INFO] CLOSED: Candle [11:33–11:36] O=54902.8 H=54947.8 L=54882.6 C=54950.0
+2026-04-13 11:36:00 [INFO] PUT SIGNAL | close=54950.0 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:36:00 [INFO] Entry signal: PUT | BankNifty=54950.0 | Strike=55000
+2026-04-13 11:36:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:36:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:36:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:36:00 [INFO] New candle @ 11:36 | Open=54950.0
+2026-04-13 11:39:00 [INFO] CLOSED: Candle [11:36–11:39] O=54950.0 H=54996.0 L=54926.1 C=54995.1
+2026-04-13 11:39:00 [INFO] PUT SIGNAL | close=54995.1 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:39:00 [INFO] Entry signal: PUT | BankNifty=54995.1 | Strike=55000
+2026-04-13 11:39:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:39:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:39:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:39:00 [INFO] New candle @ 11:39 | Open=54995.1
+2026-04-13 11:42:00 [INFO] CLOSED: Candle [11:39–11:42] O=54995.1 H=55012.5 L=54968.5 C=54971.2
+2026-04-13 11:42:00 [INFO] PUT SIGNAL | close=54971.2 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:42:00 [INFO] Entry signal: PUT | BankNifty=54971.2 | Strike=55000
+2026-04-13 11:42:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:42:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:42:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:42:00 [INFO] New candle @ 11:42 | Open=54971.2
+2026-04-13 11:45:00 [INFO] CLOSED: Candle [11:42–11:45] O=54971.2 H=54977.3 L=54949.4 C=54955.4
+2026-04-13 11:45:00 [INFO] PUT SIGNAL | close=54955.4 ≥ 30min-high(54691.2) + 35
+2026-04-13 11:45:00 [INFO] Entry signal: PUT | BankNifty=54955.4 | Strike=55000
+2026-04-13 11:45:00 [ERROR] Option NOT found: BANKNIFTY 55000 PE exp=2026-04-28
+2026-04-13 11:45:00 [ERROR] Sample PE in scrip master → strike='6150000.000000' instrumenttype='OPTIDX' symbol='BANKNIFTY29SEP2661500PE' expiry='29SEP2026'
+2026-04-13 11:45:00 [ERROR] Instrument not found — PUT skipped
+2026-04-13 11:45:00 [INFO] New candle @ 11:45 | Open=54955.4
+2026-04-14 09:10:05 [INFO] BankNifty Strategy | PAPER TRADING
+2026-04-14 09:10:05 [INFO] Threshold=35  Target=30  SL=40  Lot=30
+[I 260414 03:40:05 smartConnect:124] in pool
+2026-04-14 09:10:05 [INFO] Generating session...
+2026-04-14 09:10:05 [INFO] Session OK  | JWT     : Bearer eyJhbGciOiJIU...
+2026-04-14 09:10:05 [INFO]             | FeedTok : eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlMzODc5MDUiLCJpYXQiOjE3NzYxMzgwMDUsImV4cCI6MTc3NjIyNDQwNX0.w9gYWNTT4mUz-186ZvvNyJSf4hY7AAxQFJ0-2_oe4g9HXcOaaNhZgWP5oxQwutnzfX_px_gGiYYTF2ySsqv65Q
+2026-04-14 09:10:05 [INFO] Loaded 45730 NFO instruments
+2026-04-14 09:10:05 [INFO] Nearest expiry : 2026-04-28
+2026-04-14 09:10:05 [INFO] Connecting WebSocket...
+2026-04-14 09:10:06 [INFO] Websocket connected
+2026-04-14 09:10:06 [INFO] WebSocket OPEN — subscribing to BankNifty index
+2026-04-15 09:10:02 [INFO] BankNifty Strategy | PAPER TRADING
+2026-04-15 09:10:02 [INFO] Threshold=35  Target=30  SL=40  Lot=30
+[I 260415 03:40:02 smartConnect:124] in pool
+2026-04-15 09:10:02 [INFO] Generating session...
+2026-04-15 09:10:02 [INFO] Session OK  | JWT     : Bearer eyJhbGciOiJIU...
+2026-04-15 09:10:02 [INFO]             | FeedTok : eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlMzODc5MDUiLCJpYXQiOjE3NzYyMjQ0MDIsImV4cCI6MTc3NjMxMDgwMn0.vUjjeB3jIpmhEJaoyWmT54IfM5y-ztEno0Xu7BWu0MvDoMQ8hViEdujxLbIOlPikoIq7ASZrZ0qjW8QM4DIc-A
+2026-04-15 09:10:03 [INFO] Loaded 45730 NFO instruments
+2026-04-15 09:10:03 [INFO] Nearest expiry : 2026-04-28
+2026-04-15 09:10:03 [INFO] Connecting WebSocket...
+2026-04-15 09:10:03 [INFO] Websocket connected
+2026-04-15 09:10:03 [INFO] WebSocket OPEN — subscribing to BankNifty index
+2026-04-15 09:15:00 [INFO] New candle @ 09:15 | Open=56373.0
+2026-04-15 09:45:00 [INFO] CLOSED: Candle [09:15–09:45] O=56373.0 H=56781.8 L=56311.9 C=56447.1
+2026-04-15 09:45:00 [INFO] =======================================================
+2026-04-15 09:45:00 [INFO] 30-MIN CANDLE | HIGH=56781.8  LOW=56311.9
+2026-04-15 09:45:00 [INFO] PUT  entry if 3-min close ≥ 56816.8
+2026-04-15 09:45:00 [INFO] CALL entry if 3-min close ≤ 56276.9
+2026-04-15 09:45:00 [INFO] =======================================================
+2026-04-15 09:45:00 [INFO] New candle @ 09:45 | Open=56447.1
+2026-04-16 09:14:59 [INFO] BankNifty Strategy | PAPER TRADING
+2026-04-16 09:14:59 [INFO] Threshold=35  Target=30  SL=40  Lot=30
+[I 260416 03:44:59 smartConnect:124] in pool
+2026-04-16 09:14:59 [INFO] Generating session...
+2026-04-16 09:14:59 [INFO] Session OK  | JWT     : Bearer eyJhbGciOiJIU...
+2026-04-16 09:14:59 [INFO]             | FeedTok : eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlMzODc5MDUiLCJpYXQiOjE3NzYzMTEwOTksImV4cCI6MTc3NjM5NzQ5OX0.FzfDyICnUYiZrQf42BLs5bhguG1snnoT5fJenX7JZtM4r0Ffd75-e1Zrhz9EuEuyff8GOJL8ZnbdfTP2_Ql2og
+2026-04-16 09:15:00 [INFO] Loaded 47018 NFO instruments
+2026-04-16 09:15:00 [INFO] Nearest expiry : 2026-04-28
+2026-04-16 09:15:00 [INFO] Connecting WebSocket...
+2026-04-16 09:15:01 [INFO] Websocket connected
+2026-04-16 09:15:01 [INFO] WebSocket OPEN — subscribing to BankNifty index
+2026-04-16 09:15:01 [INFO] New candle @ 09:15 | Open=56692.6
